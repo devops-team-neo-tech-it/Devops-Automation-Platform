@@ -1,13 +1,12 @@
 def call(String projectName, String projectPath, String nvdApiKey) {
     try {
         sh """
-            /var/jenkins_home/dependency-check/bin/dependency-check.sh \\
+            dependency-check.sh \\
                 --project "${projectName}" \\
                 --scan "${projectPath}" \\
-                --format "HTML" \\ 
+                --format "HTML" \\
                 --out ./reports \\
-                --nvdApiKey "${nvdApiKey}"
-
+                --nvdApiKey "${nvdApiKey}" && \
             mv ./reports/dependency-check-report.html ./reports/${projectName}-report.html
         """
     } catch (Exception e) {
