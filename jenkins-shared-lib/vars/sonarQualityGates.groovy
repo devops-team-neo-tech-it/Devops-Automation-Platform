@@ -1,12 +1,11 @@
 def call(String FAILURE_REASON){
     stage('SonarQube Quality Gates') {
-        try {
-            timeout(time: 10, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
-            }
-        } catch (Exception e) {
-            FAILURE_REASON = 'sonarqube_quality_gate_failed'
-            error("SonarQube quality gate failed: ${e.message}")
+        def qualityGate = waitForQualityGate()
+        echo "SonarQube Status: ${qualityGate.status}"
+
+        if (qualityGate.status != 'OK') {
+            FAILURE_REASON = 'quality_gate'
+            error "Quality Gate failed"
         }
     }
 }
