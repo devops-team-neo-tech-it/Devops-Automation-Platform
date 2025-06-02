@@ -1,4 +1,4 @@
-def call(String projectPath, String buildTool, def env){
+def call(String projectPath, String buildTool){
     try{
         switch(buildTool) {
             case "maven":
@@ -8,7 +8,7 @@ def call(String projectPath, String buildTool, def env){
                 error("Unsupported build tool: ${buildTool}")
         }
     }catch(Exception e){
-        env.FAILURE_REASON = 'unit_test_failed'
+        FAILURE_REASON = 'unit_test_failed'
         error("Unit Tests failed: ${e.message}")
     }
 }
