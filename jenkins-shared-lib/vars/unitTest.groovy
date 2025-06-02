@@ -1,4 +1,4 @@
-def call(String projectPath, String buildTool){
+def call(String projectPath, String buildTool, String FAILURE_REASON){
     try{
         switch(buildTool) {
             case "maven":
