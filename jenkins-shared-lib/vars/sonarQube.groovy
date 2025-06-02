@@ -9,7 +9,6 @@ def call(String sonarQubeConnection, String buildTool, String projectPath, Strin
 
         }
     } catch (Exception e) {
-        env.FAILURE_REASON = 'sonarqube_analysis_failed'
         error("SonarQube analysis failed: ${e.message}")
     }
 }
