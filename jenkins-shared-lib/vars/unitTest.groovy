@@ -3,7 +3,9 @@ def call(String projectPath, String buildTool){
         switch(buildTool) {
             case "maven":
                 UnitTestMaven(projectPath, buildTool)
-            break
+                break
+            default:
+                error("Unsupported build tool: ${buildTool}")
         }
     }catch(Exception e){
         FAILURE_REASON = 'unit_test_failed'
