@@ -1,8 +1,7 @@
 def call(){
+    echo "📧 Sending email notification..."
 
-    def authorEmail = bat(script: "@git log -1 --pretty=format:\"%%ae\"", returnStdout: true).trim()
-    // Optional: Sanitize if git sometimes wraps email in < > or quotes
-    authorEmail = authorEmail.replaceAll(/[<>']/, "") 
+    def authorEmail = sh(script: "git log -1 --pretty=format:'%ae'", returnStdout: true).trim()
 
     def status = currentBuild.currentResult
     def statusClass = status.toLowerCase()
