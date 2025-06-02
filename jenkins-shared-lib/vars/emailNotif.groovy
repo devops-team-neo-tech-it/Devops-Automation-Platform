@@ -6,7 +6,7 @@ def call(){
     def status = currentBuild.currentResult
     def statusClass = status.toLowerCase()
     def statusIcon = status == 'SUCCESS' ? '✅' : (status == 'FAILURE' ? '❌' : '⚠️')
-    def reasonMsg = FAILURE_REASON ? buildFailureMessage(FAILURE_REASON) : "Build completed with status: ${status}"
+    def reasonMsg = "Build completed with status: ${status}"
 
     def template = libraryResource('jenkins-email-template.html')
                     .replace('${BUILD_STATUS}', status)
