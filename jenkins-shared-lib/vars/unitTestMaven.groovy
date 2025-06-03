@@ -1,5 +1,5 @@
 def call(String projectPath){
     echo '🧪 Running Unit Tests with Maven'
-    sh "cd ${projectPath} && mvn test"
+    sh "mvn -o test"
     echo '✅ Unit Tests completed successfully'
 }
