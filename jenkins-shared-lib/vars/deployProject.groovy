@@ -44,7 +44,7 @@ private def deployMavenProject(String NEXUS_URL, String GROUP_PATH, String SNAPS
                     def latestSnapshot = matcher[0][1]
 
                     def artifactName = "${PROJECT_NAME}.jar"
-                    def artifactUrl = "${baseSnapshotUrl}/${artifactName}"
+                    def artifactUrl = "${baseSnapshotUrl}/${PROJECT_NAME}-${latestSnapshot}.jar"
 
                     echo "✅ Latest artifact: ${artifactUrl}"
 
