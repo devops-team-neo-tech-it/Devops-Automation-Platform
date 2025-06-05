@@ -1,4 +1,4 @@
-def call(String PROJECT_PATH, String NEXUS_URL, String REPOSITORY) {
+def pushMavenToNexus(String PROJECT_PATH, String NEXUS_URL, String REPOSITORY) {
 
     echo "🚀 Pushing to Nexus Repository ${NEXUS_URL}"
     if (!fileExists("${PROJECT_PATH}/pom.xml")) {
