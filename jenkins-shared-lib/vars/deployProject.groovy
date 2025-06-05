@@ -1,5 +1,5 @@
 def call(String BUILD_TOOL, String NEXUS_URL, String GROUP_PATH, String SNAPSHOT_VERSION, String SSH_KEY, String REPOSITORY, 
-            String PROJECT_NAME, String REMOTE_HOST, String REMOTE_USER, String TARGET_DIR
+            String PROJECT_NAME, String REMOTE_HOST, String REMOTE_USER, String TARGET_DIR, String ENV_VARS
 ){
     try{
         switch(BUILD_TOOL) {
@@ -17,7 +17,6 @@ def call(String BUILD_TOOL, String NEXUS_URL, String GROUP_PATH, String SNAPSHOT
         error("Failed to deploy project: ${e.message}")
     }
     echo "✅ Deployment completed successfully for ${PROJECT_NAME} on ${REMOTE_HOST}"
-
 }
 
 private def deployMavenProject(String NEXUS_URL, String GROUP_PATH, String SNAPSHOT_VERSION, String SSH_KEY, String REPOSITORY, 
@@ -33,15 +32,12 @@ private def deployMavenProject(String NEXUS_URL, String GROUP_PATH, String SNAPS
 
                     // Télécharger le fichier metadata
                     sh "curl -s -o metadata.xml ${metadataUrl}"
+                        
                     // Lire le contenu du fichier
                     def metadata = readFile('metadata.xml')
-
+                        
                     // Extraire directement la valeur du dernier snapshot (évite les erreurs de sérialisation)
-                    def matcher = (metadata =~ /<value>(0\.0\.1-[^<]+)<\/value>/)
-                    if (!matcher) {
-                        error "❌ Unable to extract latest snapshot version from metadata.xml"
-                    }
-                    def latestSnapshot = matcher[0][1]
+                    def latestSnapshot = (metadata =~ /<value>(0\.0\.1-[^<]+)<\/value>/)[0][1]
 
                     def artifactName = "${PROJECT_NAME}.jar"
                     def artifactUrl = "${baseSnapshotUrl}/${PROJECT_NAME}-${latestSnapshot}.jar"
@@ -50,7 +46,7 @@ private def deployMavenProject(String NEXUS_URL, String GROUP_PATH, String SNAPS
 
                     // Déploiement sur le serveur distant
                     withCredentials([
-                        string(credentialsId: 'env-vars', variable: 'ENV_VARS'),
+                        string(credentialsId: ENV_VARS, variable: 'ENV_VARS'),
                     ]) {
                         sh """
                             ssh -o StrictHostKeyChecking=no ${REMOTE_USER}@${REMOTE_HOST} \\
