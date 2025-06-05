@@ -4,7 +4,7 @@ def pushToNexus(String BUILD_TOOL, String PROJECT_PATH, String NEXUS_URL, String
     try {
         switch(BUILD_TOOL) {
             case 'maven':
-                mavenNexus(PROJECT_PATH, NEXUS_URL, REPOSITORY)
+                pushMavenToNexus(PROJECT_PATH, NEXUS_URL, REPOSITORY)
                 break
         }
     } catch (Exception e) {
