@@ -1,4 +1,4 @@
-def call(String BUILD_TOOL, String PROJECT_PATH, String NEXUS_URL, String REPOSITORY) {
+def pushToNexus(String BUILD_TOOL, String PROJECT_PATH, String NEXUS_URL, String REPOSITORY) {
     
     echo '🚀 Pushing to Nexus Repository'
     try {
