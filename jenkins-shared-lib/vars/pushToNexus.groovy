@@ -5,7 +5,7 @@ def call(String BUILD_TOOL, String PROJECT_PATH, String NEXUS_URL, String REPOSI
             echo "🔍 Checking for project files in ${PROJECT_PATH}"
             switch(BUILD_TOOL) {
                 case "maven":
-                    pushMavenToNexus(PROJECT_PATH, NEXUS_URL, REPOSITORY)
+                    pushMavenToNexus(NEXUS_URL, REPOSITORY)
                     break
                 default:
                     error("Unsupported build tool: ${BUILD_TOOL}")
